@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Kit - Система модульных домов</title>
+    <style>
+        :root {
+            --primary-color: #d4a373; /* Цвет дерева/песка */
+            --dark-color: #2c3e50;
+            --light-bg: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e9ecef;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Навигация и переключатель языков */
+        header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .lang-switch button {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .lang-switch button.active {
+            background-color: white;
+            color: var(--dark-color);
+        }
+
+        /* Основные контейнеры (Слайды) */
+        main {
+            margin-top: 80px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-card {
+            background: white;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-card.row {
+            flex-direction: row;
+        }
+
+        @media (max-width: 768px) {
+            .section-card.row {
+                flex-direction: column;
+            }
+        }
+
+        .content {
+            padding: 40px;
+            flex: 1;
+        }
+
+        .image-container {
+            flex: 1;
+            background-color: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Типографика */
+        h1, h2, h3 { color: var(--dark-color); margin-top: 0; }
+        h1 { font-size: 2.5em; margin-bottom: 10px; }
+        h2 { font-size: 2em; border-bottom: 3px solid var(--primary-color); padding-bottom: 10px; display: inline-block; }
+        
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        
+        .highlight {
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-left: 5px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* Контакты */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .contact-box {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* RTL стили для Фарси */
+        [lang="fa"] {
+            direction: rtl;
+            font-family: Tahoma, 'Vazirmatn', Arial, sans-serif;
+        }
+        [lang="fa"] ul { padding-right: 20px; padding-left: 0; }
+        [lang="fa"] .highlight {
+            border-left: none;
+            border-right: 5px solid var(--primary-color);
+            border-radius: 5px 0 0 5px;
+        }
+
+        /* Скрытие/Показ языков */
+        .ru-content { display: block; }
+        .fa-content { display: none; }
+        
+        body.fa-active .ru-content { display: none; }
+        body.fa-active .fa-content { display: block; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><strong>HOUSE KIT</strong></div>
+        <div class="lang-switch">
+            <button id="btn-ru" class="active" onclick="switchLang('ru')">Русский</button>
+            <button id="btn-fa" onclick="switchLang('fa')">فارسی</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="section-card">
+            <div class="image-container" style="height: 400px;">
+                <img src="Screenshot_20260301_002001.jpg" alt="Модульный дом на фоне природы">
+            </div>
+            <div class="content center-text" style="text-align: center;">
+                <div class="ru-content" lang="ru">
+                    <h3 style="color: var(--primary-color);">Экспортное предложение</h3>
+                    <h1>Система модульных домов (House Kit)</h1>
+                    <p>Экспортное предложение для рынка Ирана</p>
+                    <p><strong>Производство:</strong> г. Волгоград, Российская Федерация</p>
+                </div>
+                <div class="fa-content" lang="fa">
+                    <h3 style="color: var(--primary-color);">پیشنهاد صادراتی</h3>
+                    <h1>سیستم خانه‌های مدولار (هوس کیت)</h1>
+                    <p>پیشنهاد صادراتی برای بازار ایران</p>
+                    <p><strong>محل تولید:</strong> شهر ولگوگراد، فدراسیون روسیه</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card row">
+            <div class="content">
+                <div class="ru-content" lang="ru">
+                    <h2>Концепция</h2>
+                    <h3>Оптимизированная логистика и простота сборки</h3>
+                    <div class="highlight">
+                        <strong>Формат Flat-Pack:</strong> Модульный дом поставляется в разобранном виде — каждый элемент тщательно упакован и промаркирован для удобства транспортировки и хранения.
+                    </div>
+                    <ul>
+                        <li><strong>Оптимальная транспортировка:</strong> Конструкция разработана для максимальной компактности при перевозке — снижение логистических издержек до 40% по сравнению с традиционными методами.</li>
+                        <li><strong>Быстрая сборка на площадке:</strong> Простая и интуитивная сборка без специализированного оборудования — идеальное решение для массового сегмента жилищного строительства.</li>
+                    </ul>
+                </div>
+                <div class="fa-content" lang="fa">
+                    <h2>مفهوم پروژه</h2>
+                    <h3>لجستیک بهینه و سهولت در مونتاژ</h3>
+                    <div class="highlight">
+                        <strong>فرمت فلت‌پک (Flat-Pack):</strong> خانه مدولار به صورت قطعات مجزا عرضه می‌شود - هر جزء برای سهولت در حمل و نقل و انبارداری، به دقت بسته‌بندی و شماره‌گذاری شده است.
+                    </div>
+                    <ul>
+                        <li><strong>حمل و نقل بهینه:</strong> طراحی سازه به گونه‌ای است که در هنگام حمل و نقل بیشترین فشردگی را داشته باشد - کاهش هزینه‌های لجستیک تا ۴۰٪ در مقایسه با روش‌های سنتی.</li>
+                        <li><strong>مونتاژ سریع در محل:</strong> مونتاژ ساده و شهودی بدون نیاز به تجهیزات تخصصی - راهکاری ایده‌آل برای بخش انبوه‌سازی مسکن.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="IMG_20260228_225628_959.jpg" alt="Промышленный масштаб логистики">
+            </div>
+        </div>
+
+        <div class="section-card row">
+            <div class="image-container">
+                <img src="Screenshot_20260228_233704.jpg" alt="3D Модель каркаса">
+            </div>
+            <div class="content">
+                <div class="ru-content" lang="ru">
+                    <h2>Технические данные</h2>
+                    <p>Технические параметры и адаптация к климату</p>
+                    <ul>
+                        <li><strong>Площадь: 30–35 м²</strong><br>Оптимальный размер для комфортного проживания.</li>
+                        <li><strong>Высота потолка: 2,45 м</strong><br>Просторное внутреннее пространство.</li>
+                        <li><strong>Каркас: Дерево / Металл</strong><br>Выбор материала по запросу.</li>
+                        <li><strong>Сборка: Быстрая</strong><br>Минимальные сроки на объекте.</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>Адаптация для жаркого климата:</strong><br>Специальное утепление и вентиляционная система для комфортного проживания при температурах до +45°C.
+                    </div>
+                </div>
+                <div class="fa-content" lang="fa">
+                    <h2>داده‌های فنی</h2>
+                    <p>پارامترهای فنی و انطباق با اقلیم</p>
+                    <ul>
+                        <li><strong>مساحت: ۳۰–۳۵ متر مربع</strong><br>اندازه بهینه برای زندگی راحت.</li>
+                        <li><strong>ارتفاع سقف: ۲.۴۵ متر</strong><br>فضای داخلی دلباز.</li>
+                        <li><strong>اسکلت: چوبی / فلزی</strong><br>انتخاب متریال طبق سفارش.</li>
+                        <li><strong>مونتاژ: سریع</strong><br>حداقل زمان در محل پروژه.</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>انطباق با اقلیم گرم:</strong><br>عایق‌بندی ویژه و سیستم تهویه برای زندگی راحت در دماهای تا ۴۵+ درجه سانتی‌گراد.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="content">
+                <div class="ru-content" lang="ru">
+                    <h2>Архитектура</h2>
+                    <h3>Современная архитектура и природная гармония</h3>
+                    <ul>
+                        <li><strong>Стильный фасад:</strong> Гармоничное сочетание натуральных материалов: камень, древесина и современные панели создают элегантный и устойчивый внешний вид.</li>
+                        <li><strong>Панорамное остекление:</strong> Большие окна обеспечивают максимальную инсоляцию и визуальную связь с окружающей природой.</li>
+                        <li><strong>Вариативность:</strong> От уютных небольших домиков до современных эко-отелей — адаптируемый дизайн под любую концепцию.</li>
+                    </ul>
+                </div>
+                <div class="fa-content" lang="fa">
+                    <h2>معماری</h2>
+                    <h3>معماری مدرن و هماهنگی با طبیعت</h3>
+                    <ul>
+                        <li><strong>نمای شیک:</strong> ترکیب هماهنگ مواد طبیعی شامل سنگ، چوب و پنل‌های مدرن ظاهری زیبا و بادوام ایجاد می‌کنند.</li>
+                        <li><strong>پنجره‌های پانوراما:</strong> پنجره‌های بزرگ، حداکثر نورگیری و ارتباط بصری با طبیعت اطراف را فراهم کرده و حس دلبازی ایجاد می‌کنند.</li>
+                        <li><strong>تنوع‌پذیری:</strong> از خانه‌های دنج و کوچک تا اکوهتل‌های مدرن - طراحی قابل انطباق با هر مفهوم و کاربری.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card row">
+            <div class="content">
+                <div class="ru-content" lang="ru">
+                    <h2>Комплектация</h2>
+                    <p>Полный набор для строительства (Инженерная точность - каждая деталь промаркирована и проверена).</p>
+                    <ol>
+                        <li><strong>Каркасные элементы:</strong> Пронумерованные детали для простоты монтажа и исключения ошибок при сборке.</li>
+                        <li><strong>Стеновые панели:</strong> Предварительно изготовленные панели с готовой отделкой и утеплением.</li>
+                        <li><strong>Кровельная система:</strong> Полный комплект кровельных материалов и фасадных элементов.</li>
+                        <li><strong>Крепёж и инструкция:</strong> Полный комплект крепежных изделий и детальная инструкция по сборке.</li>
+                    </ol>
+                    <p><em>Опционально: окна, двери, подготовка под инженерные сети.</em></p>
+                </div>
+                <div class="fa-content" lang="fa">
+                    <h2>تجهیزات و قطعات</h2>
+                    <p>مجموعه کامل برای ساخت و ساز (دقت مهندسی: هر قطعه علامت‌گذاری و بررسی شده است).</p>
+                    <ol>
+                        <li><strong>عناصر اسکلت سازه:</strong> قطعات شماره‌گذاری شده برای سهولت در نصب و جلوگیری از خطا در زمان مونتاژ.</li>
+                        <li><strong>پنل‌های دیوار:</strong> پنل‌های پیش‌ساخته با نازک‌کاری نهایی و عایق‌بندی.</li>
+                        <li><strong>سیستم سقف:</strong> مجموعه کامل مصالح سقف و عناصر نما.</li>
+                        <li><strong>اتصالات و دفترچه راهنما:</strong> مجموعه کامل قطعات اتصالی و دستورالعمل دقیق مونتاژ.</li>
+                    </ol>
+                    <p><em>اختیاری: پنجره‌ها، درب‌ها، آماده‌سازی برای شبکه‌های تاسیساتی.</em></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card row">
+            <div class="image-container">
+                <img src="Screenshot_20260301_002018.jpg" alt="Поселок из модульных домов">
+            </div>
+            <div class="content">
+                <div class="ru-content" lang="ru">
+                    <h2>Применение</h2>
+                    <p>Универсальные решения для бизнеса и частных лиц</p>
+                    <div class="highlight">
+                        <strong>Масштабируемость:</strong> От одного дома до целого поселка или отельного комплекса.
+                    </div>
+                    <h3>Частный сектор</h3>
+                    <ul>
+                        <li>Индивидуальное жильё</li>
+                        <li>Загородные дома</li>
+                        <li>Second home (второй дом)</li>
+                    </ul>
+                    <h3>Коммерческий сектор</h3>
+                    <ul>
+                        <li>Арендный бизнес</li>
+                        <li>Глэмпинги и кемпинги</li>
+                        <li>Жильё для сотрудников</li>
+                    </ul>
+                </div>
+                <div class="fa-content" lang="fa">
+                    <h2>کاربرد</h2>
+                    <p>راهکارهای چندمنظوره برای کسب‌وکارها و افراد حقیقی</p>
+                    <div class="highlight">
+                        <strong>قابلیت گسترش:</strong> از یک خانه تا یک شهرک کامل یا مجتمع هتل.
+                    </div>
+                    <h3>بخش خصوصی</h3>
+                    <ul>
+                        <li>مسکن انفرادی</li>
+                        <li>خانه‌های ویلایی</li>
+                        <li>خانه دوم (Second home)</li>
+                    </ul>
+                    <h3>بخش تجاری</h3>
+                    <ul>
+                        <li>کسب‌وکار اجاره</li>
+                        <li>گلمپینگ و کمپینگ</li>
+                        <li>اسکان کارکنان</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card row">
+            <div class="content">
+                <div class="ru-content" lang="ru">
+                    <h2>Логистика</h2>
+                    <h3>Прямой логистический коридор</h3>
+                    <ol>
+                        <li><strong>Волгоград:</strong> Производственная площадка (~400 км автотранспортом - внутреннее плечо).</li>
+                        <li><strong>Астрахань:</strong> Порт отправки (Контейнерная отправка через Каспийское море - Прямая Каспийская линия).</li>
+                        <li><strong>Порт Ирана:</strong> Пункт назначения.</li>
+                    </ol>
+                </div>
+                <div class="fa-content" lang="fa">
+                    <h2>لجستیک</h2>
+                    <h3>کریدور لجستیک مستقیم</h3>
+                    <ol>
+                        <li><strong>ولگوگراد:</strong> محل تولید (حدود ۴۰۰ کیلومتر حمل و نقل جاده‌ای - فاصله کوتاه داخلی).</li>
+                        <li><strong>آستراخان:</strong> بندر ارسال (ارسال کانتینری از طریق دریای خزر - خط مستقیم خزر).</li>
+                        <li><strong>بندر ایران:</strong> مقصد نهایی.</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="CARTE4.jpg" alt="Карта маршрута">
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="content">
+                <div class="ru-content" lang="ru">
+                    <h2>Сотрудничество и Преимущества</h2>
+                    <h3>Гибкая модель запуска проекта</h3>
+                    <ul>
+                        <li><strong>Старт проекта:</strong> На стадии запуска пилотной партии. Открыты для первых партнёров с привлекательными условиями.</li>
+                        <li><strong>Стартовая партия:</strong> до 10 домокомплектов (Оптимальный объём для тестирования рынка).</li>
+                        <li><strong>Сроки подготовки:</strong> до 60 дней с момента подтверждения заказа и получения аванса.</li>
+                        <li><strong>Масштабирование:</strong> Нет верхнего лимита объёмов. Готовы адаптировать объёмы под потребности.</li>
+                    </ul>
+                    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #ccc;">
+                    <h3>Почему стоит выбрать нас?</h3>
+                    <ul>
+                        <li><strong>Готовый продукт:</strong> Полный комплект "под ключ" — от каркаса до фасадных элементов.</li>
+                        <li><strong>Климатическая устойчивость:</strong> Адаптация под жаркие условия (+45°C).</li>
+                        <li><strong>Простая логистика:</strong> Прямой маршрут снижает расходы на доставку.</li>
+                        <li><strong>Долгосрочное партнерство:</strong> Гибкие условия и персональный подход.</li>
+                    </ul>
+                </div>
+                <div class="fa-content" lang="fa">
+                    <h2>همکاری و مزایا</h2>
+                    <h3>مدل منعطف برای راه‌اندازی پروژه</h3>
+                    <ul>
+                        <li><strong>شروع پروژه:</strong> در مرحله راه‌اندازی پارت اول. آماده همکاری با اولین شرکا با شرایط جذاب.</li>
+                        <li><strong>پارت اول:</strong> تا ۱۰ مجموعه خانه (حجم بهینه برای تست بازار).</li>
+                        <li><strong>زمان آماده‌سازی:</strong> تا ۶۰ روز از زمان تایید سفارش و دریافت پیش‌پرداخت.</li>
+                        <li><strong>قابلیت گسترش:</strong> هیچ سقف محدودیتی برای حجم وجود ندارد. افزایش مرحله‌ای ظرفیت تولید امکان‌پذیر است.</li>
+                    </ul>
+                    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #ccc;">
+                    <h3>چرا ما را انتخاب کنید؟</h3>
+                    <ul>
+                        <li><strong>محصول نهایی:</strong> مجموعه کامل "کلید تحویل" - بدون نیاز به خرید مصالح اضافی.</li>
+                        <li><strong>مقاومت اقلیمی:</strong> انطباق ویژه با شرایط گرم (تا ۴۵+ درجه).</li>
+                        <li><strong>لجستیک ساده:</strong> مسیر مستقیم هزینه‌های ارسال را کاهش می‌دهد.</li>
+                        <li><strong>مشارکت بلندمدت:</strong> آماده ارسال‌های عمده منظم با رویکرد اختصاصی.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card" style="background-color: var(--dark-color); color: white;">
+            <div class="content" style="text-align: center;">
+                <div class="ru-content" lang="ru">
+                    <h2 style="color: white; border-bottom-color: var(--primary-color);">Контакты</h2>
+                    <p>Открыты для долгосрочного сотрудничества в Иране. Оптовые поставки, планирование объёмов, регулярные экспортные поставки.</p>
+                    <div class="contact-grid">
+                        <div class="contact-box">📞 Телефон<br>+7 (905) 396-77-72</div>
+                        <div class="contact-box">✉️ Email<br>vatek@internet.ru</div>
+                    </div>
+                    <p style="margin-top: 20px;">📍 <strong>Производство:</strong> г. Волгоград, Российская Федерация</p>
+                </div>
+                <div class="fa-content" lang="fa">
+                    <h2 style="color: white; border-bottom-color: var(--primary-color);">تماس با ما</h2>
+                    <p>آماده همکاری بلندمدت در ایران: فروش عمده، برنامه‌ریزی حجم تولید، ارسال‌های صادراتی منظم.</p>
+                    <div class="contact-grid">
+                        <div class="contact-box">📞 تلفن<br>+7 (905) 396-77-72</div>
+                        <div class="contact-box">✉️ ایمیل<br>vatek@internet.ru</div>
+                    </div>
+                    <p style="margin-top: 20px;">📍 <strong>محل تولید:</strong> شهر ولگوگراد، فدراسیون روسیه</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function switchLang(lang) {
+            // Обновляем активный класс для кнопок
+            document.getElementById('btn-ru').classList.remove('active');
+            document.getElementById('btn-fa').classList.remove('active');
+            document.getElementById('btn-' + lang).classList.add('active');
+
+            // Переключаем контент на уровне body
+            if (lang === 'fa') {
+                document.body.classList.add('fa-active');
+                document.body.setAttribute('lang', 'fa');
+                document.body.setAttribute('dir', 'rtl');
+            } else {
+                document.body.classList.remove('fa-active');
+                document.body.setAttribute('lang', 'ru');
+                document.body.setAttribute('dir', 'ltr');
+            }
+        }
+    </script>
+</body>
+</html>
